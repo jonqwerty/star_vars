@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { FC } from 'react'
 
-const CharacterScreen = () => {
+const CharacterScreen:FC = () => {
   return (
     <View>
       <Text>CharacterScreen</Text>
