@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 
 import {Colors, FontFamily} from '../common/style';
@@ -11,7 +11,11 @@ interface ICharacterListItemProps {
 const CharacterListItem: FC<ICharacterListItemProps> = ({item}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.textNme}>{item.name}</Text>
+      <Text style={styles.textName}>{item.name}</Text>
+      <Image
+        style={styles.image}
+        source={require('../assets/images/HeartEmpty.png')}
+      />
     </View>
   );
 };
@@ -24,12 +28,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     padding: 10,
     borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
-  textNme: {
+  textName: {
     fontFamily: FontFamily.poppins_black,
     color: Colors.black,
     fontSize: 16,
     lineHeight: 18,
+  },
+  image: {
+    resizeMode: 'contain',
   },
 });

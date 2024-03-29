@@ -1,6 +1,6 @@
 import {createReducer, isAnyOf, SerializedError} from '@reduxjs/toolkit';
 
-import {getCharacters} from './actions';
+import {getCharacters, setPage} from './actions';
 import {LoadingStatus} from '../../common/enums';
 
 export interface ICharacter {
@@ -24,20 +24,22 @@ export interface ICharacter {
 
 export interface IResp {
   count: number;
-  next: string;
-  previous: null;
+  next: string | null;
+  previous: string | null;
   results: ICharacter[];
 }
 export interface IApp {
   characters: IResp | null;
   validationError: SerializedError | null;
   loading: string;
+  page: number;
 }
 
 const initialState: IApp = {
   characters: null,
   validationError: null,
   loading: LoadingStatus.IDLE,
+  page: 1,
 };
 
 const appReducer = createReducer(initialState, builder => {
@@ -46,6 +48,10 @@ const appReducer = createReducer(initialState, builder => {
       state.characters = action.payload;
       state.validationError = null;
       state.loading = LoadingStatus.SUCCEEDED;
+    })
+
+    .addCase(setPage, (state, action) => {
+      state.page = action.payload;
     })
 
     .addMatcher(isAnyOf(getCharacters.pending), state => {

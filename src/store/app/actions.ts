@@ -1,15 +1,17 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 
 import ActionType from './actionsType';
 import {axiosApi} from '../../api/api';
 import {IResp} from './appReducer';
 
-const getCharacters = createAsyncThunk<IResp, {}, {}>(
+const getCharacters = createAsyncThunk<IResp, {page: number}, {}>(
   ActionType.GET_CHARACTERS,
-  async (id, {extra: unknown}) => {
-    const {data} = await axiosApi.get('people/');
+  async (params, {extra: unknown}) => {
+    const {data} = await axiosApi.get('people/', {params});
     return data;
   },
 );
 
-export {getCharacters};
+const setPage = createAction<number>(ActionType.SET_PAGE);
+
+export {getCharacters, setPage};

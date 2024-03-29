@@ -7,14 +7,16 @@ import {getCharacters} from '../store/app/actions';
 import CounterPane from '../components/CounterPane';
 import {Colors} from '../common/style';
 import CharacterListItem from '../components/CharacterListItem';
+import Pagination from '../components/Pagination';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const {characters} = useSelector((state: RootState) => state.app);
+  const {characters, page} = useSelector((state: RootState) => state.app);
 
   useEffect(() => {
-    dispatch(getCharacters({}));
-  }, []);
+    dispatch(getCharacters({page: page}));
+  }, [page]);
+
   console.log('first', characters);
   return (
     <View style={styles.container}>
@@ -24,6 +26,7 @@ const Home: FC = () => {
         data={characters?.results}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => <CharacterListItem item={item} />}
+        ListFooterComponent={<Pagination characters={characters} page={page} />}
       />
     </View>
   );
