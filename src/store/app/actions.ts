@@ -30,6 +30,8 @@ const resetAll = createAction(ActionType.RESET_ALL);
 
 const cleanError = createAction(ActionType.CLEAN_ERROR);
 
+const cleanPlanet = createAction(ActionType.CLEAN_PLANET);
+
 export {
   getCharacters,
   getPlanetInfo,
@@ -39,4 +41,5 @@ export {
   setOther,
   resetAll,
   cleanError,
+  cleanPlanet,
 };

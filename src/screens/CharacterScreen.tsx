@@ -7,7 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {Colors, FontFamily} from '../common/style';
 import {RootRouteProps, RootStackParamList} from '../common/enums';
 import {RootState, useAppDispatch} from '../store/store';
-import {getPlanetInfo} from '../store/app/actions';
+import {cleanError, cleanPlanet, getPlanetInfo} from '../store/app/actions';
 import InfoItem from '../components/InfoItem';
 
 const CharacterScreen: FC = () => {
@@ -23,6 +23,12 @@ const CharacterScreen: FC = () => {
 
   useEffect(() => {
     dispatch(getPlanetInfo(Number(planetId)));
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanPlanet());
+    };
   }, []);
 
   const handleBack = () => {
@@ -52,7 +58,7 @@ const CharacterScreen: FC = () => {
         <InfoItem title={'Height:'} info={route.params.item.height} />
         <InfoItem title={'Eye Color:'} info={route.params.item.eye_color} />
         <InfoItem title={'Mass:'} info={route.params.item.mass} />
-        <InfoItem title={'Home World:'} info={planet?.name || ''} />
+        <InfoItem title={'Home World:'} info={planet?.name || '-'} />
       </View>
     </View>
   );

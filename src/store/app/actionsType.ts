@@ -7,6 +7,7 @@ const ActionType = {
   SET_OTHER: 'app/set-other',
   RESET_ALL: 'app/reset-all',
   CLEAN_ERROR: 'app/clean-error',
+  CLEAN_PLANET: 'app/clean-planet',
 };
 
 export default ActionType;

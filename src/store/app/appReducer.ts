@@ -2,6 +2,7 @@ import {createReducer, isAnyOf, SerializedError} from '@reduxjs/toolkit';
 
 import {
   cleanError,
+  cleanPlanet,
   getCharacters,
   getPlanetInfo,
   resetAll,
@@ -114,6 +115,10 @@ const appReducer = createReducer(initialState, builder => {
 
     .addCase(cleanError, state => {
       state.validationError = null;
+    })
+
+    .addCase(cleanPlanet, state => {
+      state.planet = null;
     })
 
     .addMatcher(
