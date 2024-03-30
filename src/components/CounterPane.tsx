@@ -4,6 +4,8 @@ import React, {FC} from 'react';
 import {Colors, FontFamily} from '../common/style';
 import CounterCell from './CounterCell';
 import Button from './Button';
+import {useAppDispatch} from '../store/store';
+import {resetAll} from '../store/app/actions';
 
 interface ICounterPaneProps {
   femaleQuantity: string[];
@@ -16,7 +18,12 @@ const CounterPane: FC<ICounterPaneProps> = ({
   maleQuantity,
   otherQuantity,
 }) => {
-  
+  const dispatch = useAppDispatch();
+
+  const handleReset = () => {
+    dispatch(resetAll());
+  };
+
   return (
     <View>
       <View style={styles.row}>
@@ -25,7 +32,7 @@ const CounterPane: FC<ICounterPaneProps> = ({
           title={'Reset'}
           borderColor={Colors.red}
           titleColor={Colors.red}
-          handler={() => {}}
+          handler={handleReset}
         />
       </View>
       <View style={styles.rowCell}>

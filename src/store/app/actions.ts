@@ -26,7 +26,7 @@ const setFemale = createAction<string[]>(ActionType.SET_FEMALE);
 const setMale = createAction<string[]>(ActionType.SET_MALE);
 const setOther = createAction<string[]>(ActionType.SET_OTHER);
 
-const resetAll = createAction<[]>(ActionType.RESET_ALL);
+const resetAll = createAction(ActionType.RESET_ALL);
 
 export {
   getCharacters,
