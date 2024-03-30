@@ -25,6 +25,7 @@ const Home: FC = () => {
         maleQuantity={maleQuantity}
         otherQuantity={otherQuantity}
       />
+
       <FlatList
         showsVerticalScrollIndicator={false}
         data={characters?.results}

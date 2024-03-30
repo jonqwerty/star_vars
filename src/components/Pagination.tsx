@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 
 import {Colors, FontFamily} from '../common/style';
@@ -43,6 +43,7 @@ const Pagination: FC<IPaginationProps> = ({characters, page}) => {
       <Text style={[styles.text, styles.marginLeftFive]}>
         {characters?.count}
       </Text>
+
       <View style={styles.marginLeftTen}>
         <Button
           title={'PREV'}
@@ -51,6 +52,7 @@ const Pagination: FC<IPaginationProps> = ({characters, page}) => {
           handler={handlePrevPress}
         />
       </View>
+
       <View style={styles.marginLeftTen}>
         <Button
           title={'NEXT'}

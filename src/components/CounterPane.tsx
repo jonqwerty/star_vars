@@ -28,6 +28,7 @@ const CounterPane: FC<ICounterPaneProps> = ({
     <View>
       <View style={styles.row}>
         <Text style={styles.textTitle}>Characters</Text>
+
         <Button
           title={'Reset'}
           borderColor={Colors.red}
@@ -35,6 +36,7 @@ const CounterPane: FC<ICounterPaneProps> = ({
           handler={handleReset}
         />
       </View>
+
       <View style={styles.rowCell}>
         <CounterCell count={femaleQuantity?.length} title={'Female'} />
         <CounterCell count={maleQuantity?.length} title={'Male'} />

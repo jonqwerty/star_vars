@@ -1,15 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC, useEffect} from 'react';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {Colors, FontFamily} from '../common/style';
-import {RootRouteProps} from '../common/enums';
+import {RootRouteProps, RootStackParamList} from '../common/enums';
 import {RootState, useAppDispatch} from '../store/store';
 import {getPlanetInfo} from '../store/app/actions';
+import InfoItem from '../components/InfoItem';
 
 const CharacterScreen: FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const route = useRoute<RootRouteProps<'Character'>>();
   const {planet} = useSelector((state: RootState) => state.app);
 
@@ -22,43 +25,34 @@ const CharacterScreen: FC = () => {
     dispatch(getPlanetInfo(Number(planetId)));
   }, []);
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={handleBack}>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/arrowBack.png')}
+        />
+      </TouchableOpacity>
+
       <View style={styles.row}>
         <Text style={styles.textTitle}>Character info</Text>
         <Text style={[styles.textTitle, {fontFamily: FontFamily.poppins_bold}]}>
           {route.params.item.name}
         </Text>
       </View>
+
       <View style={styles.paper}>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Name:</Text>
-          <Text style={styles.textName}>{route.params.item.name}</Text>
-        </View>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Birth Year:</Text>
-          <Text style={styles.textName}>{route.params.item.birth_year}</Text>
-        </View>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Gender:</Text>
-          <Text style={styles.textName}>{route.params.item.gender}</Text>
-        </View>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Height:</Text>
-          <Text style={styles.textName}>{route.params.item.height}</Text>
-        </View>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Eye Color:</Text>
-          <Text style={styles.textName}>{route.params.item.eye_color}</Text>
-        </View>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Mass:</Text>
-          <Text style={styles.textName}>{route.params.item.mass}</Text>
-        </View>
-        <View style={styles.rowPaper}>
-          <Text style={styles.text}>Home World:</Text>
-          <Text style={styles.textName}>{planet?.name}</Text>
-        </View>
+        <InfoItem title={'Name:'} info={route.params.item.name} />
+        <InfoItem title={'Birth Year:'} info={route.params.item.birth_year} />
+        <InfoItem title={'Gender:'} info={route.params.item.gender} />
+        <InfoItem title={'Height:'} info={route.params.item.height} />
+        <InfoItem title={'Eye Color:'} info={route.params.item.eye_color} />
+        <InfoItem title={'Mass:'} info={route.params.item.mass} />
+        <InfoItem title={'Home World:'} info={planet?.name || ''} />
       </View>
     </View>
   );
@@ -72,8 +66,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey,
     paddingHorizontal: 16,
   },
+
   row: {flexDirection: 'row', justifyContent: 'space-between', marginTop: 25},
-  rowPaper: {flexDirection: 'row', paddingVertical: 5},
+
   paper: {
     marginTop: 14,
     backgroundColor: Colors.white,
@@ -82,23 +77,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.grey_200,
   },
+
   textTitle: {
     fontFamily: FontFamily.poppins_semibold,
     color: Colors.black,
     fontSize: 16,
     lineHeight: 18,
   },
-  textName: {
-    fontFamily: FontFamily.poppins_semibold,
-    color: Colors.black,
-    fontSize: 16,
-    lineHeight: 18,
-  },
-  text: {
-    width: '35%',
-    fontFamily: FontFamily.poppins_regular,
-    color: Colors.black,
-    fontSize: 16,
-    lineHeight: 18,
-  },
+
+  image: {marginTop: 16},
 });

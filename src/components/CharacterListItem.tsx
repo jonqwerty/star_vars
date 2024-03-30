@@ -1,8 +1,7 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React, {FC} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {Colors, FontFamily} from '../common/style';
 import {ICharacter} from '../store/app/appReducer';
@@ -27,16 +26,16 @@ const CharacterListItem: FC<ICharacterListItemProps> = ({
   const dispatch = useAppDispatch();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const handleItemPress = () => {
-    navigation.navigate(Screen.Character, {item: item});
-  };
-
   const isInFavorites = isStringInArrays(
     item.name,
     femaleQuantity,
     maleQuantity,
     otherQuantity,
   );
+
+  const handleItemPress = () => {
+    navigation.navigate(Screen.Character, {item: item});
+  };
 
   const handleInFavorite = () => {
     if (item.gender === GenderType.FEMALE) {
@@ -65,16 +64,17 @@ const CharacterListItem: FC<ICharacterListItemProps> = ({
   return (
     <TouchableOpacity style={styles.container} onPress={handleItemPress}>
       <Text style={styles.textName}>
-        {item.name}-{item.gender}
+        {item.name} <Text style={styles.textGender}>({item.gender})</Text>
       </Text>
+
       <TouchableOpacity
         onPress={isInFavorites ? handleOutFavorite : handleInFavorite}>
         <Image
           style={styles.image}
           source={
             isInFavorites
-              ? require('../assets/images/HeartFill.png')
-              : require('../assets/images/HeartEmpty.png')
+              ? require('../assets/images/heartFill.png')
+              : require('../assets/images/heartEmpty.png')
           }
         />
       </TouchableOpacity>
@@ -106,6 +106,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 18,
   },
+
+  textGender: {
+    fontFamily: FontFamily.poppins_extralight,
+    color: Colors.black,
+    fontSize: 16,
+    lineHeight: 18,
+  },
+
   image: {
     resizeMode: 'contain',
   },
