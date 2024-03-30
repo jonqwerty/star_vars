@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     flex: 1,
+    borderWidth: 1,
+    borderColor: Colors.grey_200,
   },
 
   textCount: {
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 35,
   },
-  
+
   textTitle: {
     fontFamily: FontFamily.poppins_medium,
     color: Colors.black,

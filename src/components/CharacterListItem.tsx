@@ -24,16 +24,22 @@ export default CharacterListItem;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 14,
     backgroundColor: Colors.white,
     padding: 10,
     borderRadius: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    elevation: 4,
+
+    shadowColor: Colors.black,
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
 
   textName: {
-    fontFamily: FontFamily.poppins_black,
+    fontFamily: FontFamily.poppins_semibold,
     color: Colors.black,
     fontSize: 16,
     lineHeight: 18,

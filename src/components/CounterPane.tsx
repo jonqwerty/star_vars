@@ -1,17 +1,21 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 
 import {Colors, FontFamily} from '../common/style';
 import CounterCell from './CounterCell';
+import Button from './Button';
 
 const CounterPane: FC = () => {
   return (
     <View>
       <View style={styles.row}>
         <Text style={styles.textTitle}>Characters</Text>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.textBtn}>Reset</Text>
-        </TouchableOpacity>
+        <Button
+          title={'Reset'}
+          borderColor={Colors.red}
+          titleColor={Colors.red}
+          handler={() => {}}
+        />
       </View>
       <View style={styles.rowCell}>
         <CounterCell count={'0'} title={'Female'} />
@@ -32,13 +36,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
 
-  textBtn: {
-    fontFamily: FontFamily.poppins_bold,
-    color: Colors.red,
-    fontSize: 16,
-    lineHeight: 18,
-  },
-
   rowCell: {
     marginTop: 15,
     flexDirection: 'row',
@@ -51,12 +48,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-
-  btn: {
-    padding: 10,
-    borderWidth: 2,
-    borderColor: Colors.red,
-    borderRadius: 8,
   },
 });

@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import React, {FC, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
@@ -27,6 +27,7 @@ const Home: FC = () => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => <CharacterListItem item={item} />}
         ListFooterComponent={<Pagination characters={characters} page={page} />}
+        ListFooterComponentStyle={{marginBottom: 14}}
       />
     </View>
   );
