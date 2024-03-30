@@ -1,6 +1,7 @@
 import {createReducer, isAnyOf, SerializedError} from '@reduxjs/toolkit';
 
 import {
+  cleanError,
   getCharacters,
   getPlanetInfo,
   resetAll,
@@ -109,6 +110,10 @@ const appReducer = createReducer(initialState, builder => {
       state.femaleQuantity = [];
       state.maleQuantity = [];
       state.otherQuantity = [];
+    })
+
+    .addCase(cleanError, state => {
+      state.validationError = null;
     })
 
     .addMatcher(

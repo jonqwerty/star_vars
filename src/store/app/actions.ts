@@ -28,6 +28,8 @@ const setOther = createAction<string[]>(ActionType.SET_OTHER);
 
 const resetAll = createAction(ActionType.RESET_ALL);
 
+const cleanError = createAction(ActionType.CLEAN_ERROR);
+
 export {
   getCharacters,
   getPlanetInfo,
@@ -36,4 +38,5 @@ export {
   setMale,
   setOther,
   resetAll,
+  cleanError,
 };
