@@ -1,22 +1,30 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {Colors, FontFamily} from '../common/style';
 import {ICharacter} from '../store/app/appReducer';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList, Screen} from '../common/enums';
 
 interface ICharacterListItemProps {
   item: ICharacter;
 }
 
 const CharacterListItem: FC<ICharacterListItemProps> = ({item}) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const handleItemPress = () => {
+    navigation.navigate(Screen.Character, {item: item});
+  };
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handleItemPress}>
       <Text style={styles.textName}>{item.name}</Text>
       <Image
         style={styles.image}
         source={require('../assets/images/HeartEmpty.png')}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
