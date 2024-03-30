@@ -36,6 +36,18 @@
     {
       "path": "src/assets/fonts/Poppins-Thin.ttf",
       "sha1": "09ba4dcd5509c8085bf88c665dcc51cbdfced27b"
+    },
+    {
+      "path": "src/assets/images/arrowBack.png",
+      "sha1": "ba34b39b2e4241a4a1c6f984869fc333969b8596"
+    },
+    {
+      "path": "src/assets/images/heartEmpty.png",
+      "sha1": "43c62aa5b11f27979ece738a4e891d241ed8911c"
+    },
+    {
+      "path": "src/assets/images/heartFill.png",
+      "sha1": "a4210af328eeb41ef72f2a824cc14bd9e04d98c5"
     }
   ]
 }
