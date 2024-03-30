@@ -2,7 +2,7 @@ import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 
 import ActionType from './actionsType';
 import {axiosApi} from '../../api/api';
-import {IResp} from './appReducer';
+import {IPlanet, IResp} from './appReducer';
 
 const getCharacters = createAsyncThunk<IResp, {page: number}, {}>(
   ActionType.GET_CHARACTERS,
@@ -12,6 +12,14 @@ const getCharacters = createAsyncThunk<IResp, {page: number}, {}>(
   },
 );
 
+const getPlanetInfo = createAsyncThunk<IPlanet, number, {}>(
+  ActionType.GET_PLANET_INFO,
+  async (id, {extra: unknown}) => {
+    const {data} = await axiosApi.get(`planets/${id}`);
+    return data;
+  },
+);
+
 const setPage = createAction<number>(ActionType.SET_PAGE);
 
-export {getCharacters, setPage};
+export {getCharacters, getPlanetInfo, setPage};

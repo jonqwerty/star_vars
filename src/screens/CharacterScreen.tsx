@@ -1,12 +1,27 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 import {Colors, FontFamily} from '../common/style';
 import {RootRouteProps} from '../common/enums';
+import {RootState, useAppDispatch} from '../store/store';
+import {getPlanetInfo} from '../store/app/actions';
 
 const CharacterScreen: FC = () => {
+  const dispatch = useAppDispatch();
   const route = useRoute<RootRouteProps<'Character'>>();
+  const {planet} = useSelector((state: RootState) => state.app);
+
+  const planetId =
+    route.params.item.homeworld.split('/')[
+      route.params.item.homeworld.split('/').length - 2
+    ];
+
+  useEffect(() => {
+    dispatch(getPlanetInfo(Number(planetId)));
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -42,7 +57,7 @@ const CharacterScreen: FC = () => {
         </View>
         <View style={styles.rowPaper}>
           <Text style={styles.text}>Home World:</Text>
-          <Text style={styles.textName}>{route.params.item.homeworld}</Text>
+          <Text style={styles.textName}>{planet?.name}</Text>
         </View>
       </View>
     </View>

@@ -1,6 +1,6 @@
 import {createReducer, isAnyOf, SerializedError} from '@reduxjs/toolkit';
 
-import {getCharacters, setPage} from './actions';
+import {getCharacters, getPlanetInfo, setPage} from './actions';
 import {LoadingStatus} from '../../common/enums';
 
 export interface ICharacter {
@@ -22,6 +22,23 @@ export interface ICharacter {
   url: string[];
 }
 
+export interface IPlanet {
+  climate: string;
+  created: string;
+  diameter: string;
+  edited: string;
+  films: string[];
+  gravity: string;
+  name: string;
+  orbital_period: string;
+  population: string;
+  residents: string[];
+  rotation_period: string;
+  surface_water: string;
+  terrain: string;
+  url: string;
+}
+
 export interface IResp {
   count: number;
   next: string | null;
@@ -33,6 +50,7 @@ export interface IApp {
   validationError: SerializedError | null;
   loading: string;
   page: number;
+  planet: IPlanet | null;
 }
 
 const initialState: IApp = {
@@ -40,6 +58,7 @@ const initialState: IApp = {
   validationError: null,
   loading: LoadingStatus.IDLE,
   page: 1,
+  planet: null,
 };
 
 const appReducer = createReducer(initialState, builder => {
@@ -50,18 +69,30 @@ const appReducer = createReducer(initialState, builder => {
       state.loading = LoadingStatus.SUCCEEDED;
     })
 
+    .addCase(getPlanetInfo.fulfilled, (state, action) => {
+      state.planet = action.payload;
+      state.validationError = null;
+      state.loading = LoadingStatus.SUCCEEDED;
+    })
+
     .addCase(setPage, (state, action) => {
       state.page = action.payload;
     })
 
-    .addMatcher(isAnyOf(getCharacters.pending), state => {
-      state.loading = LoadingStatus.LOADING;
-    })
+    .addMatcher(
+      isAnyOf(getCharacters.pending, getPlanetInfo.pending),
+      state => {
+        state.loading = LoadingStatus.LOADING;
+      },
+    )
 
-    .addMatcher(isAnyOf(getCharacters.rejected), (state, action) => {
-      state.loading = LoadingStatus.FAILED;
-      state.validationError = action.error;
-    });
+    .addMatcher(
+      isAnyOf(getCharacters.rejected, getPlanetInfo.rejected),
+      (state, action) => {
+        state.loading = LoadingStatus.FAILED;
+        state.validationError = action.error;
+      },
+    );
 });
 
 export default appReducer;
