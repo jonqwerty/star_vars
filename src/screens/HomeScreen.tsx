@@ -3,7 +3,7 @@ import React, {FC, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 import {RootState, useAppDispatch} from '../store/store';
-import {getCharacters} from '../store/app/actions';
+import {getCharacters, setPage} from '../store/app/actions';
 import CounterPane from '../components/CounterPane';
 import {Colors} from '../common/style';
 import CharacterListItem from '../components/CharacterListItem';
@@ -13,6 +13,10 @@ const Home: FC = () => {
   const dispatch = useAppDispatch();
   const {characters, page, femaleQuantity, maleQuantity, otherQuantity} =
     useSelector((state: RootState) => state.app);
+
+  useEffect(() => {
+    dispatch(setPage(1));
+  }, []);
 
   useEffect(() => {
     dispatch(getCharacters({page: page}));
