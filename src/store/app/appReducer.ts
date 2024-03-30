@@ -1,6 +1,14 @@
 import {createReducer, isAnyOf, SerializedError} from '@reduxjs/toolkit';
 
-import {getCharacters, getPlanetInfo, setPage} from './actions';
+import {
+  getCharacters,
+  getPlanetInfo,
+  resetAll,
+  setFemale,
+  setMale,
+  setOther,
+  setPage,
+} from './actions';
 import {LoadingStatus} from '../../common/enums';
 
 export interface ICharacter {
@@ -51,6 +59,9 @@ export interface IApp {
   loading: string;
   page: number;
   planet: IPlanet | null;
+  femaleQuantity: string[];
+  maleQuantity: string[];
+  otherQuantity: string[];
 }
 
 const initialState: IApp = {
@@ -59,6 +70,9 @@ const initialState: IApp = {
   loading: LoadingStatus.IDLE,
   page: 1,
   planet: null,
+  femaleQuantity: [],
+  maleQuantity: [],
+  otherQuantity: [],
 };
 
 const appReducer = createReducer(initialState, builder => {
@@ -77,6 +91,24 @@ const appReducer = createReducer(initialState, builder => {
 
     .addCase(setPage, (state, action) => {
       state.page = action.payload;
+    })
+
+    .addCase(setFemale, (state, action) => {
+      state.femaleQuantity = action.payload;
+    })
+
+    .addCase(setMale, (state, action) => {
+      state.maleQuantity = action.payload;
+    })
+
+    .addCase(setOther, (state, action) => {
+      state.otherQuantity = action.payload;
+    })
+
+    .addCase(resetAll, (state, action) => {
+      state.femaleQuantity = [];
+      state.maleQuantity = [];
+      state.otherQuantity = [];
     })
 
     .addMatcher(

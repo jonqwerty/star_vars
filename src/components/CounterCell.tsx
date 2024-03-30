@@ -4,7 +4,7 @@ import React, {FC} from 'react';
 import {Colors, FontFamily} from '../common/style';
 
 interface ICounterCellProps {
-  count: string;
+  count: number;
   title: string;
 }
 

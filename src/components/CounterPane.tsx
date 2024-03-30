@@ -5,7 +5,18 @@ import {Colors, FontFamily} from '../common/style';
 import CounterCell from './CounterCell';
 import Button from './Button';
 
-const CounterPane: FC = () => {
+interface ICounterPaneProps {
+  femaleQuantity: string[];
+  maleQuantity: string[];
+  otherQuantity: string[];
+}
+
+const CounterPane: FC<ICounterPaneProps> = ({
+  femaleQuantity,
+  maleQuantity,
+  otherQuantity,
+}) => {
+  
   return (
     <View>
       <View style={styles.row}>
@@ -18,9 +29,9 @@ const CounterPane: FC = () => {
         />
       </View>
       <View style={styles.rowCell}>
-        <CounterCell count={'0'} title={'Female'} />
-        <CounterCell count={'0'} title={'Male'} />
-        <CounterCell count={'0'} title={'Othes'} />
+        <CounterCell count={femaleQuantity?.length} title={'Female'} />
+        <CounterCell count={maleQuantity?.length} title={'Male'} />
+        <CounterCell count={otherQuantity?.length} title={'Othes'} />
       </View>
     </View>
   );

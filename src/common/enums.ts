@@ -1,6 +1,11 @@
 import {RouteProp} from '@react-navigation/native';
 import {ICharacter} from '../store/app/appReducer';
 
+export enum GenderType {
+  FEMALE = 'female',
+  MALE = 'male',
+}
+
 export enum LoadingStatus {
   IDLE = 'idle',
   LOADING = 'loading',

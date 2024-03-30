@@ -11,21 +11,32 @@ import Pagination from '../components/Pagination';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const {characters, page} = useSelector((state: RootState) => state.app);
+  const {characters, page, femaleQuantity, maleQuantity, otherQuantity} =
+    useSelector((state: RootState) => state.app);
 
   useEffect(() => {
     dispatch(getCharacters({page: page}));
   }, [page]);
 
-  console.log('first', characters);
   return (
     <View style={styles.container}>
-      <CounterPane />
+      <CounterPane
+        femaleQuantity={femaleQuantity}
+        maleQuantity={maleQuantity}
+        otherQuantity={otherQuantity}
+      />
       <FlatList
         showsVerticalScrollIndicator={false}
         data={characters?.results}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item, index}) => <CharacterListItem item={item} />}
+        renderItem={({item, index}) => (
+          <CharacterListItem
+            item={item}
+            femaleQuantity={femaleQuantity}
+            maleQuantity={maleQuantity}
+            otherQuantity={otherQuantity}
+          />
+        )}
         ListFooterComponent={<Pagination characters={characters} page={page} />}
         ListFooterComponentStyle={{marginBottom: 14}}
       />

@@ -22,4 +22,18 @@ const getPlanetInfo = createAsyncThunk<IPlanet, number, {}>(
 
 const setPage = createAction<number>(ActionType.SET_PAGE);
 
-export {getCharacters, getPlanetInfo, setPage};
+const setFemale = createAction<string[]>(ActionType.SET_FEMALE);
+const setMale = createAction<string[]>(ActionType.SET_MALE);
+const setOther = createAction<string[]>(ActionType.SET_OTHER);
+
+const resetAll = createAction<[]>(ActionType.RESET_ALL);
+
+export {
+  getCharacters,
+  getPlanetInfo,
+  setPage,
+  setFemale,
+  setMale,
+  setOther,
+  resetAll,
+};
